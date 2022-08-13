@@ -1,9 +1,11 @@
 """
+Created on Wed Aug 10 14:05:29 2022
+
+@author: VicBoxMS
 El siguiente archivo almacena las funciones utilizadas en el archivo main
 """
 
-
-
+##Funcion para ajustar la longitud del documento
 def ajustar_long(x):
     if str(x)[1:2]=='9' or str(x)[1:2]=='8':
         return float(str(x)[:3]+'.'+str(x)[3:])

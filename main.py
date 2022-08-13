@@ -4,35 +4,7 @@ Created on Wed Aug 10 14:05:29 2022
 
 @author: VicBoxMS
 """
-
-def ajustar_long(x):
-    if str(x)[1:2]=='9' or str(x)[1:2]=='8':
-        return float(str(x)[:3]+'.'+str(x)[3:])
-    elif str(x)[1:2]=='1':
-        return float(str(x)[:4]+'.'+str(x)[4:])
-    else:
-        return(-1)
-
-##Es necesaria la correccion ya que es nuestro identificador
-##en el mapa con ayuda de plotly
-def corregir_nombre_estados(x):
-    if x=='MichoacÃ¡n':
-        return 'Michoacán'
-    elif x=='Distrito Federal':
-        return 'Ciudad de México'
-    elif x=='MÃ©xico':
-        return 'México'
-    elif x=='Nuevo LeÃ³n':
-        return 'Nuevo León'
-    elif x=='San Luis PotosÃ\xad':
-        return 'San Luis Potosí'
-    elif x=='YucatÃ¡n':
-        return 'Yucatán'
-    elif x=='QuerÃ©taro':
-        return 'Querétaro'
-    else:
-        return x
-
+import funciones
 import numpy as np
 import pandas as pd
 import string
@@ -84,7 +56,7 @@ import plotly.io as pio
 import requests
 
 pio.renderers.default='browser'
-repo_url = 'https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json' 
+repo_url = 'https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json'
 #Archivo GeoJSON
 mx_regions_geo = requests.get(repo_url).json()
 
@@ -110,7 +82,7 @@ imagenes =[ruta+'moneda.jpg',
            ruta+'educacion.png']
 
 pio.renderers.default='browser'
-repo_url = 'https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json' 
+repo_url = 'https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json'
 #Archivo GeoJSON
 mx_regions_geo = requests.get(repo_url).json()
 
@@ -132,15 +104,15 @@ for contador, i in enumerate(rubros):
     df_r_pobreza = df_r_pobreza.groupby(by='entidad_federativa').median()
     df_r_pobreza = df_r_pobreza.rename(columns={0:'Porcentaje'})
     ###Mapas
-    ##Mapa con plotly-express    
-    fig = px.choropleth(data_frame=df_r_pobreza, 
-                        geojson=mx_regions_geo, 
+    ##Mapa con plotly-express
+    fig = px.choropleth(data_frame=df_r_pobreza,
+                        geojson=mx_regions_geo,
                         locations=df_r_pobreza.index, # nombre de la columna del Dataframe
                         featureidkey='properties.name',  # ruta al campo del archivo GeoJSON con el que se hará la relación (nombre de los estados)
                         color=df_r_pobreza['Porcentaje'], #El color depende de las cantidades
                         color_continuous_scale=colores[contador],
                        )
-    fig.update_geos(showcountries=True, showcoastlines=True, showland=True, fitbounds="locations")    
+    fig.update_geos(showcountries=True, showcoastlines=True, showland=True, fitbounds="locations")
     if contador>0:
         pyLogo = Image.open(imagenes[contador])
         fig.add_layout_image(
@@ -156,7 +128,7 @@ for contador, i in enumerate(rubros):
 #                'text' : nombres[contador],
 #                'x':0.5,
 #                'xanchor': 'center'
-#            })   
+#            })
     fig.update_layout(
         title=dict(
             text=nombres[contador],
@@ -166,7 +138,7 @@ for contador, i in enumerate(rubros):
                 family="Arial",
                 size=33,
                 color='#000000'
-            )))    
+            )))
     fig.show()
 
 
@@ -186,13 +158,13 @@ print(pca.components_)
 ###Mapas
 ##Mapa con plotly-express
 pio.renderers.default='browser'
-repo_url = 'https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json' 
+repo_url = 'https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHigh.json'
 #Archivo GeoJSON
 mx_regions_geo = requests.get(repo_url).json()
 
 
-fig = px.choropleth(data_frame=df_r_pobreza, 
-                    geojson=mx_regions_geo, 
+fig = px.choropleth(data_frame=df_r_pobreza,
+                    geojson=mx_regions_geo,
                     locations=df_r_pobreza.index, # nombre de la columna del Dataframe
                     featureidkey='properties.name',  # ruta al campo del archivo GeoJSON con el que se hará la relación (nombre de los estados)
                     color=df_r_pobreza[0], #El color depende de las cantidades
@@ -303,6 +275,3 @@ sns.set_theme(style="whitegrid")
 ax = sns.barplot(x="ic", y="entidad_federativa", hue=0, data=df_barplot_hue,order =ranks)
 ax.set(xlabel='Porcentaje', ylabel='Entidad Federativa')
 plt.title("Porcentaje Reportado Para Las Variables ic_asalud, vul_car y vul_ing")
-
-
-
