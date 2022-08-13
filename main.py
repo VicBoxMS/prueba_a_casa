@@ -4,6 +4,7 @@ Created on Wed Aug 10 14:05:29 2022
 
 @author: VicBoxMS
 """
+#Importar del documento
 from funciones import *
 import numpy as np
 import pandas as pd
