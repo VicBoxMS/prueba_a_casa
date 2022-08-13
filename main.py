@@ -4,7 +4,7 @@ Created on Wed Aug 10 14:05:29 2022
 
 @author: VicBoxMS
 """
-import funciones
+from funciones import *
 import numpy as np
 import pandas as pd
 import string
@@ -87,8 +87,6 @@ repo_url = 'https://raw.githubusercontent.com/angelnmara/geojson/master/mexicoHi
 mx_regions_geo = requests.get(repo_url).json()
 
 for contador, i in enumerate(rubros):
-    contador=4
-    i=rubro_vivienda
     X_rubro_pobreza = df[i]
     pca = PCA(n_components=1)
     entidades = pd.DataFrame(df['entidad_federativa'])
