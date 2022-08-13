@@ -1,7 +1,7 @@
 # prueba_a_casa
 Material adicional para el analisis de la pobreza y demas carencias en mexico a partir de variables reportadas por el CONEVAL 2018.
 
-\vspace{2cm}
+\vspace{2pt}
 
 
 ## Las siguientes imagenes que se muestran son parte del resultado final del analisis que se llevo a cabo.
